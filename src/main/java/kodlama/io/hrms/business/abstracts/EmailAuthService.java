@@ -9,7 +9,7 @@ import java.util.List;
 public interface EmailAuthService {
     DataResult<List<EMailAuth>> getAll();
 
-    DataResult<List<EMailAuth>> getById(int id);
+    DataResult<EMailAuth> getById(int id);
 
     Result add(EMailAuth mail);
 

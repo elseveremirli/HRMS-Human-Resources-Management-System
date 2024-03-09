@@ -1,26 +1,28 @@
 package kodlama.io.hrms.entities.concretes;
 
-
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.sql.Date;
-
-@Data
 @Entity
-@Table(name = "e_mail_auths")
+@Data
+@Table(name = "employers")
 @AllArgsConstructor
 @NoArgsConstructor
-public class EMailAuth {
+public class Employer {
+
     @Id
     @Column(name="id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    @Column(name = "is_verified")
-    private boolean isVerified;
-    @Column(name = "verified_date")
-    private Date verifiedDate;
+    @Column(name = "company_name")
+    private String companyName;
+    @Column(name = "web_site")
+    private String webSite;
+    @Column(name = "e_mail")
+    private String email;
+
+
 
 }
