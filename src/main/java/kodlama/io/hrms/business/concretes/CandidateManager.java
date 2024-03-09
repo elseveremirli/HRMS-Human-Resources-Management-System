@@ -86,12 +86,13 @@ public class CandidateManager implements CandidateService {
     }
      void createEmailAuth(Candidate candidate,Date date){
          EMailAuth eMailAuth = new EMailAuth(0,true,date);
+         candidate.setEMailAuth(candidate.getId());
          eMailAuthDao.save(eMailAuth);
      }
     void createMernisAuth(Candidate candidate, Date date) {
         MernisAuth newMernisAuth = new MernisAuth(0, true, date);
-        mernisAuthDao.save(newMernisAuth);
         candidate.setMernisAuth(newMernisAuth.getId());
+        mernisAuthDao.save(newMernisAuth);
     }
     Result isMernisAuthVerified(int id) {
         MernisAuth mernisAuth = mernisAuthDao.findById(id);

@@ -30,7 +30,7 @@ public class EmailAuthManager implements EmailAuthService {
     }
 
     @Override
-    public DataResult<List<EMailAuth>> getById(int id) {
+    public DataResult<EMailAuth> getById(int id) {
         return new SuccessDataResult(eMailAuthDao.findById(id));
     }
 
