@@ -18,7 +18,6 @@ public class TitleController {
 
 	@Autowired
 	public TitleController(TitleService titleService) {
-		super();
 		this.titleService = titleService;
 	}
 	

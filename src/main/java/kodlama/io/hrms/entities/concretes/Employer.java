@@ -1,5 +1,6 @@
 package kodlama.io.hrms.entities.concretes;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -10,6 +11,7 @@ import lombok.NoArgsConstructor;
 @Table(name = "employers")
 @AllArgsConstructor
 @NoArgsConstructor
+@JsonIgnoreProperties(ignoreUnknown = true, value = {"hibernateLazyInitializer", "handler", "hrmsAuth","eMailAuth"})
 public class Employer {
 
     @Id
@@ -28,10 +30,18 @@ public class Employer {
     private String password;
     @Column(name = "re_password")
     private String rePassword;
-    @Column(name = "e_mail_auth")
-    private int eMailAuth;
-    @Column(name = "hmrs_auth")
-    private int hrmsAuth;
+//    @Column(name = "e_mail_auth")
+//    private int eMailAuth;
+//    @Column(name = "hmrs_auth")
+//    private int hrmsAuth;
+
+
+    @OneToOne()
+    @JoinColumn(name = "e_mail_auth")
+    private EMailAuth eMailAuth;
+    @OneToOne()
+    @JoinColumn(name = "hmrs_auth")
+    private HrmsAuth hrmsAuth;
 
 
 

@@ -1,5 +1,6 @@
 package kodlama.io.hrms.entities.concretes;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -12,6 +13,7 @@ import java.sql.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "candidates")
+@JsonIgnoreProperties(ignoreUnknown = true, value = {"hibernateLazyInitializer", "handler", "mernisAuth","eMailAuth"})
 public class Candidate {
 
     @Id
@@ -32,9 +34,17 @@ public class Candidate {
     private String password;
     @Column(name = "re_password")
     private String rePassword;
-    @Column(name = "mernis_auth", unique = true)
-    private int mernisAuth;
-    @Column(name = "e_mail_auth", unique = true)
-    private int eMailAuth;
+//    @Column(name = "mernis_auth", unique = true)
+//    private int mernisAuth;
+//    @Column(name = "e_mail_auth", unique = true)
+//    private int eMailAuth;
 
+
+    @OneToOne()
+    @JoinColumn(name = "mernis_auth",referencedColumnName = "id")
+    private MernisAuth mernisAuth;
+
+    @OneToOne()
+    @JoinColumn(name = "e_mail_auth",referencedColumnName = "id")
+    private EMailAuth eMailAuth;
 }

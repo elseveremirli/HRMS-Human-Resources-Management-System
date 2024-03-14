@@ -50,8 +50,8 @@ public class CandidateManager implements CandidateService {
 
         createEmailAuth(candidate, date);
         createMernisAuth(candidate, date);
-        Result mernisResult = isMernisAuthVerified(candidate.getMernisAuth());
-        Result emailAuthResult = isEMailAuthVerified(candidate.getEMailAuth());
+        Result mernisResult = isMernisAuthVerified(candidate.getMernisAuth().getId());
+        Result emailAuthResult = isEMailAuthVerified(candidate.getEMailAuth().getId());
         if(mernisResult.isSuccess()){
             if (emailAuthResult.isSuccess()){
                 candidateDao.save(candidate);
@@ -85,14 +85,14 @@ public class CandidateManager implements CandidateService {
         return new ErrorResult("");
     }
      void createEmailAuth(Candidate candidate,Date date){
-         EMailAuth eMailAuth = new EMailAuth(0,true,date);
-         candidate.setEMailAuth(candidate.getId());
+         EMailAuth eMailAuth = new EMailAuth(0,true,date,null,null);
          eMailAuthDao.save(eMailAuth);
+         candidate.setEMailAuth(eMailAuth);
      }
     void createMernisAuth(Candidate candidate, Date date) {
-        MernisAuth newMernisAuth = new MernisAuth(0, true, date);
-        candidate.setMernisAuth(newMernisAuth.getId());
+        MernisAuth newMernisAuth = new MernisAuth(0, true, date,null);
         mernisAuthDao.save(newMernisAuth);
+        candidate.setMernisAuth(newMernisAuth);
     }
     Result isMernisAuthVerified(int id) {
         MernisAuth mernisAuth = mernisAuthDao.findById(id);

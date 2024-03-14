@@ -67,13 +67,13 @@ public class EmployerManager implements EmployerService {
     }
 
     void createEmailAuth(Employer employer,Date date){
-        EMailAuth eMailAuth = new EMailAuth(0,true,date);
+        EMailAuth eMailAuth = new EMailAuth(0,true,date,null,null);
         eMailAuthDao.save(eMailAuth);
-        employer.setEMailAuth(eMailAuth.getId());
+        employer.setEMailAuth(eMailAuth);
     }
     void createHrmsAuth(Employer employer,Date date){
-        HrmsAuth hrmsAuth = new HrmsAuth(0,date,1,true);
+        HrmsAuth hrmsAuth = new HrmsAuth(0,date,true,null);
         hrmsAuthDao.save(hrmsAuth);
-        employer.setHrmsAuth(hrmsAuth.getId());
+        employer.setHrmsAuth(hrmsAuth);
     }
 }
