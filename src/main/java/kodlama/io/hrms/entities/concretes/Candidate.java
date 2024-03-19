@@ -1,5 +1,6 @@
 package kodlama.io.hrms.entities.concretes;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
@@ -72,5 +73,6 @@ public class Candidate {
 
     @OneToOne()
     @JoinColumn(name = "e_mail_auth",referencedColumnName = "id")
+
     private EMailAuth eMailAuth;
 }
