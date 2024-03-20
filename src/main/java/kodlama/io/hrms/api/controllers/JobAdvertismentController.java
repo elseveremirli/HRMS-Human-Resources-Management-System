@@ -25,24 +25,24 @@ public class JobAdvertismentController {
         this.jobAdvertismentService=jobAdvertismentService;
     }
 
-    @PostMapping("add")
-    public ResponseEntity<?> save(@RequestBody @Valid JobAdvertisement jobAdvertisement){
-         jobAdvertismentService.save(jobAdvertisement);
-        return ResponseEntity.ok("Eklendi");
-    };
-
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
-    @ExceptionHandler(MethodArgumentNotValidException.class)
-    public Map<String, String> handleValidationExceptions(
-            MethodArgumentNotValidException ex) {
-        Map<String, String> errors = new HashMap<>();
-        ex.getBindingResult().getAllErrors().forEach((error) -> {
-            String fieldName = ((FieldError) error).getField();
-            String errorMessage = error.getDefaultMessage();
-            errors.put(fieldName, errorMessage);
-        });
-        return errors;
-    }
+//    @PostMapping("add")
+//    public ResponseEntity<?> save(@RequestBody @Valid JobAdvertisement jobAdvertisement){
+//         jobAdvertismentService.save(jobAdvertisement);
+//        return ResponseEntity.ok("Eklendi");
+//    };
+//
+//    @ResponseStatus(HttpStatus.BAD_REQUEST)
+//    @ExceptionHandler(MethodArgumentNotValidException.class)
+//    public Map<String, String> handleValidationExceptions(
+//            MethodArgumentNotValidException ex) {
+//        Map<String, String> errors = new HashMap<>();
+//        ex.getBindingResult().getAllErrors().forEach((error) -> {
+//            String fieldName = ((FieldError) error).getField();
+//            String errorMessage = error.getDefaultMessage();
+//            errors.put(fieldName, errorMessage);
+//        });
+//        return errors;
+//    }
 
     @GetMapping("setJobAdvertisementStatus")
     public Result setJobAdvertisementStatus(@RequestParam int id,@RequestParam boolean newStatus){
