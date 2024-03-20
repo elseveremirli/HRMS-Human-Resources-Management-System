@@ -33,6 +33,10 @@ public class Cv {
     @OneToMany(mappedBy = "cv")
     private List<Language> languages;
 
+    @ManyToOne()
+    @JoinColumn(name = "candidate_id", nullable = false)
+    private Candidate candidate;
+
     @Column(name = "photo_url")
     private String photoUrl;
 

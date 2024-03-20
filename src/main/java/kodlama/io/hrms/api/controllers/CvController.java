@@ -16,7 +16,7 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/api/cv/")
+@RequestMapping("/api/cv")
 public class CvController {
     private CvService cvService;
     @Autowired

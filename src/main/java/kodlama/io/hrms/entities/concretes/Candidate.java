@@ -11,6 +11,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.sql.Date;
+import java.util.List;
 
 @Entity
 @Data
@@ -75,4 +76,9 @@ public class Candidate {
     @JoinColumn(name = "e_mail_auth",referencedColumnName = "id")
 
     private EMailAuth eMailAuth;
+
+
+    @OneToMany(mappedBy = "candidate")
+    private List<Cv> cvs;
+
 }
