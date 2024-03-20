@@ -24,24 +24,24 @@ public class CvController {
         this.cvService=cvService;
     }
 
-    @PostMapping("/add")
-    public ResponseEntity<?> add(@RequestBody Cv cv) {
-        cvService.addCv(cv);
-        return ResponseEntity.ok("Added");
-    }
-
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
-    @ExceptionHandler(MethodArgumentNotValidException.class)
-    public Map<String, String> handleValidationExceptions(
-            MethodArgumentNotValidException ex) {
-        Map<String, String> errors = new HashMap<>();
-        ex.getBindingResult().getAllErrors().forEach((error) -> {
-            String fieldName = ((FieldError) error).getField();
-            String errorMessage = error.getDefaultMessage();
-            errors.put(fieldName, errorMessage);
-        });
-        return errors;
-    }
+//    @PostMapping("/add")
+//    public ResponseEntity<?> add(@RequestBody Cv cv) {
+//        cvService.addCv(cv);
+//        return ResponseEntity.ok("Added");
+//    }
+//
+//    @ResponseStatus(HttpStatus.BAD_REQUEST)
+//    @ExceptionHandler(MethodArgumentNotValidException.class)
+//    public Map<String, String> handleValidationExceptions(
+//            MethodArgumentNotValidException ex) {
+//        Map<String, String> errors = new HashMap<>();
+//        ex.getBindingResult().getAllErrors().forEach((error) -> {
+//            String fieldName = ((FieldError) error).getField();
+//            String errorMessage = error.getDefaultMessage();
+//            errors.put(fieldName, errorMessage);
+//        });
+//        return errors;
+//    }
 
     @GetMapping("/getAll")
     public DataResult<List<Cv>> getAll() {
