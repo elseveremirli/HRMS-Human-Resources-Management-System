@@ -18,7 +18,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "candidates")
-@JsonIgnoreProperties(ignoreUnknown = true, value = {"hibernateLazyInitializer", "handler", "mernisAuth","eMailAuth"})
+@JsonIgnoreProperties(ignoreUnknown = true, value = {"hibernateLazyInitializer", "handler", "mernisAuth","eMailAuth","cvs"})
 public class Candidate {
 
     @Id
@@ -43,8 +43,7 @@ public class Candidate {
     private String nationalId;
 
     @Column(name = "birth_date")
-    @NotNull
-    @NotEmpty
+
     private Date birthDate;
 
     @Column(name = "e_mail", unique = true)
@@ -78,7 +77,7 @@ public class Candidate {
     private EMailAuth eMailAuth;
 
 
-    @OneToMany(mappedBy = "candidate")
-    private List<Cv> cvs;
+//    @OneToMany(mappedBy = "candidate")
+//    private List<Cv> cvs;
 
 }

@@ -1,5 +1,6 @@
 package kodlama.io.hrms.entities.concretes;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
@@ -24,19 +25,6 @@ public class Cv {
     @Column(name = "id")
     private int id;
 
-    @OneToMany(mappedBy = "cv")
-    private List<School> schools;
-
-    @OneToMany(mappedBy = "cv")
-    private List<JobExperience> jobExperiences;
-
-    @OneToMany(mappedBy = "cv")
-    private List<Language> languages;
-
-    @ManyToOne()
-    @JoinColumn(name = "candidate_id", nullable = false)
-    private Candidate candidate;
-
     @Column(name = "photo_url")
     private String photoUrl;
 
@@ -51,4 +39,20 @@ public class Cv {
 
     @Column(name = "cover_letter")
     private String coverLetter;
+
+    @OneToMany(mappedBy = "cv")
+    @JsonBackReference
+    private List<School> schools;
+
+    @OneToMany(mappedBy = "cv", targetEntity = JobExperience.class, cascade = CascadeType.ALL)
+    @JsonBackReference
+    private List<JobExperience> jobExperiences;
+
+    @OneToMany(mappedBy = "cv")
+    @JsonBackReference
+    private List<Language> languages;
+
+    @ManyToOne()
+    @JoinColumn(name = "candidate_id")
+    private Candidate candidate;
 }
