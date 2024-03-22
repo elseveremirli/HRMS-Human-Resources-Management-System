@@ -48,13 +48,13 @@ public class CvController {
         return this.cvService.getAll();
     }
 
-    @GetMapping("/getbyid")
-    public DataResult<Cv> getById(@RequestParam int id) {
+    @GetMapping("/getbyid/{id}")
+    public DataResult<Cv> getById(@PathVariable("id") int  id) {
         return this.cvService.getById(id);
     }
 
-    @GetMapping("/getbycandidateid")
-    public DataResult<List<Cv>> getByCandidateId(@RequestParam int candidateId) {
+    @GetMapping("/getbycandidateid/{getbycandidateid}")
+    public DataResult<List<Cv>> getByCandidateId(@PathVariable("getbycandidateid") int candidateId) {
         return this.cvService.getByCandidateId(candidateId);
     }
 }

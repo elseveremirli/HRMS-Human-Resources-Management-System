@@ -44,8 +44,8 @@ public class JobAdvertismentController {
 //        return errors;
 //    }
 
-    @GetMapping("setJobAdvertisementStatus")
-    public Result setJobAdvertisementStatus(@RequestParam int id,@RequestParam boolean newStatus){
+    @GetMapping("setJobAdvertisementStatus/{id}/{newStatus}")
+    public Result setJobAdvertisementStatus(@PathVariable("id") int id,@PathVariable("newStatus") boolean newStatus){
         return jobAdvertismentService.setJobAdvertisementStatus(id,newStatus);
     };
     @GetMapping("findByIsOpen")
@@ -56,8 +56,8 @@ public class JobAdvertismentController {
     public DataResult<List<JobAdvertisement>> findByIsOpenAndDate(){
         return jobAdvertismentService.findByIsOpenAndDate();
     };
-    @GetMapping("findByEmployerCompanyNameAndIsOpen")
-    public DataResult<List<JobAdvertisement>> findByEmployerCompanyNameAndIsOpen(@RequestParam String companyName){
+    @GetMapping("findByEmployerCompanyNameAndIsOpen/{companyName}")
+    public DataResult<List<JobAdvertisement>> findByEmployerCompanyNameAndIsOpen(@PathVariable("companyName") String companyName){
         return jobAdvertismentService.findByEmployerCompanyNameAndIsOpen(companyName);
     };
 }

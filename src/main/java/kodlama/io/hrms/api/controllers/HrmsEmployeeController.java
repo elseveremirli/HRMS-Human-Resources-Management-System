@@ -29,8 +29,8 @@ public class HrmsEmployeeController {
         return this.hrmsEmployeeService.getAll();
     }
 
-    @GetMapping("/getbyid")
-    public Result getById(int id) {
+    @GetMapping("/getbyid/{id}")
+    public Result getById(@PathVariable("id") int id) {
         return this.hrmsEmployeeService.getHrmsEmployeeById(id);
     }
 
