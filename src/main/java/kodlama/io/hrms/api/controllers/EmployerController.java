@@ -5,6 +5,7 @@ import kodlama.io.hrms.business.abstracts.EmployerService;
 import kodlama.io.hrms.core.utilities.result.DataResult;
 import kodlama.io.hrms.core.utilities.result.Result;
 import kodlama.io.hrms.entities.concretes.Employer;
+import kodlama.io.hrms.entities.concretes.HrmsEmployee;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/employers")
@@ -48,5 +50,10 @@ public class EmployerController {
             errors.put(fieldName, errorMessage);
         });
         return errors;
+    }
+
+    @GetMapping("/getByUsername/{username}")
+    public Optional<Employer> getByUsername(@PathVariable String username){
+        return employerService.findByUsername(username);
     }
 }

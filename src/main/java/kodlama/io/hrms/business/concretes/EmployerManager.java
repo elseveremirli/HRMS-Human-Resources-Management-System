@@ -8,11 +8,13 @@ import kodlama.io.hrms.dataAccess.abstracts.HrmsAuthDao;
 import kodlama.io.hrms.entities.concretes.EMailAuth;
 import kodlama.io.hrms.entities.concretes.Employer;
 import kodlama.io.hrms.entities.concretes.HrmsAuth;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.sql.Date;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 
 @Service
 public class EmployerManager implements EmployerService {
@@ -20,13 +22,15 @@ public class EmployerManager implements EmployerService {
     private EmployerDao employerDao;
     private final EMailAuthDao eMailAuthDao;
     private final HrmsAuthDao hrmsAuthDao;
+    private final BCryptPasswordEncoder passwordEncoder;
 
     public  EmployerManager(EmployerDao employerDao,
                             EMailAuthDao eMailAuthDao,
-                            HrmsAuthDao hrmsAuthDao){
+                            HrmsAuthDao hrmsAuthDao, BCryptPasswordEncoder passwordEncoder){
         this.employerDao=employerDao;
         this.eMailAuthDao = eMailAuthDao;
         this.hrmsAuthDao = hrmsAuthDao;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @Override
@@ -48,8 +52,26 @@ public class EmployerManager implements EmployerService {
         createHrmsAuth(employer,date);
         createEmailAuth(employer,date);
 
-        employerDao.save(employer);
+        Employer newEmployer = employer.builder()
+                .username(employer.getUsername())
+                .companyName(employer.getCompanyName())
+                .eMail(employer.getEMail())
+                .accountNonExpired(true)
+                .isEnabled(true)
+                .accountNonLocked(true)
+                .isCredentialsNonExpired(true)
+                .authorities(null)
+                .password(passwordEncoder.encode(employer.getPassword()))
+                .webSite(employer.getWebSite())
+                .telephoneNumber(employer.getTelephoneNumber())
+                .build();
+        employerDao.save(newEmployer);
         return new SuccessResult("Employer added");
+    }
+
+    @Override
+    public Optional<Employer> findByUsername(String username) {
+        return employerDao.findByUsername(username);
     }
 
     private Result isPasswordMatch(String password, String rePassword){

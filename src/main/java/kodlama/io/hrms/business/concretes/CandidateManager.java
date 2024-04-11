@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 import java.sql.Date;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 
 @Service
 public class CandidateManager implements CandidateService {
@@ -62,6 +63,10 @@ public class CandidateManager implements CandidateService {
         return new ErrorResult(mernisResult.getMessage());
     }
 
+    @Override
+    public Optional<Candidate> findByUsername(String username) {
+        return candidateDao.findByUsername(username);
+    }
 
 
     private Result isPasswordMatch(String password, String rePassword){

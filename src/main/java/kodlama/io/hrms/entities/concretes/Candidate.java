@@ -1,25 +1,27 @@
 package kodlama.io.hrms.entities.concretes;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import java.sql.Date;
-import java.util.List;
+import java.util.Set;
 
 @Entity
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "candidates")
+@Builder
 @JsonIgnoreProperties(ignoreUnknown = true, value = {"hibernateLazyInitializer", "handler", "mernisAuth","eMailAuth","cvs"})
-public class Candidate {
+public class Candidate implements UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -61,6 +63,8 @@ public class Candidate {
     @NotNull
     @NotEmpty
     private String rePassword;
+    @Column(name = "username")
+    private String username;
 //    @Column(name = "mernis_auth", unique = true)
 //    private int mernisAuth;
 //    @Column(name = "e_mail_auth", unique = true)
@@ -75,6 +79,13 @@ public class Candidate {
     @JoinColumn(name = "e_mail_auth",referencedColumnName = "id")
 
     private EMailAuth eMailAuth;
+
+    private boolean accountNonExpired;
+    private boolean isEnabled;
+    private boolean accountNonLocked;
+    private boolean isCredentialsNonExpired;
+    @ElementCollection(fetch = FetchType.EAGER)
+    private Set<Role> authorities ;
 
 
 //    @OneToMany(mappedBy = "candidate")

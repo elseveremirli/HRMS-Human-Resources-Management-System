@@ -15,15 +15,16 @@ import org.springframework.web.bind.annotation.*;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/hmrsEmployee")
 public class HrmsEmployeeController {
-    private HrmsEmployeeService hrmsEmployeeService;
-    @Autowired
+    private final HrmsEmployeeService hrmsEmployeeService;
     public HrmsEmployeeController(HrmsEmployeeService hrmsEmployeeService) {
         this.hrmsEmployeeService = hrmsEmployeeService;
     }
+
     @GetMapping("/getAll")
     public DataResult<List<HrmsEmployee>> getAll() {
         return this.hrmsEmployeeService.getAll();
@@ -33,7 +34,10 @@ public class HrmsEmployeeController {
     public Result getById(@PathVariable("id") int id) {
         return this.hrmsEmployeeService.getHrmsEmployeeById(id);
     }
-
+    @GetMapping("/getByUsername/{username}")
+    public Optional<HrmsEmployee> getByUsername(@PathVariable String username){
+        return hrmsEmployeeService.findByUsername(username);
+    }
     @PostMapping("/add")
     public ResponseEntity<?> add(@Valid @RequestBody HrmsEmployee employee) {
         this.hrmsEmployeeService.saveHrmsEmployee(employee);
